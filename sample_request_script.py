@@ -1,7 +1,17 @@
 import requests
 
-url = 'https://www.w3schools.com/python/demopage.php'
-myobj = {'somekey': 'somevalue'}
+url = 'https://www.api.experianaperture.io/address/search/vi'
+myobj = {
+  "country_iso": "GBR",
+  "components": {
+    "unspecified": [
+      "79 Station road, kelty"
+    ]
+  },
+  "dataset": [
+    "MRF"
+  ]
+}
 
 x = requests.post(url, json = myobj)
 
