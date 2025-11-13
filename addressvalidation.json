@@ -1,0 +1,1359 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "AddressValidation",
+    "version": "v2"
+  },
+  "servers": [
+    {
+      "url": "https://api.experianaperture.io/"
+    }
+  ],
+  "paths": {
+    "/address/search/v1": {
+      "post": {
+        "tags": [
+          "AddressValidation"
+        ],
+        "summary": "Posts a partial address to the service to be completed.",
+        "parameters": [
+          {
+            "name": "Auth-Token",
+            "in": "header",
+            "description": "Your unique key, called a token, that is required to submit an API request.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Your unique key, called a token, that is required to submit an API request."
+            }
+          },
+          {
+            "name": "Reference-Id",
+            "in": "header",
+            "description": "Optional identifier that will be returned in the response to help you track the request.",
+            "schema": {
+              "type": "string",
+              "description": "Optional identifier that will be returned in the response to help you track the request.",
+              "nullable": true
+            }
+          },
+          {
+            "name": "Timeout-Seconds",
+            "in": "header",
+            "description": "Maximum time you are prepared to wait for a response, expressed in seconds. Acceptable values: 2-15. If a timeout occurs, an HTTP status code of 408 - Request Timeout will be returned.",
+            "schema": {
+              "maximum": 15,
+              "minimum": 2,
+              "type": "integer",
+              "description": "Maximum time you are prepared to wait for a response, expressed in seconds. Acceptable values: 2-15. If a timeout occurs, an HTTP status code of 408 - Request Timeout will be returned.",
+              "format": "int32",
+              "nullable": true
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "The request body.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddressSearchV1Request"
+              },
+              "examples": {
+                "GBR": {
+                  "value": {
+                    "country_iso": "GBR",
+                    "components": {
+                      "unspecified": [
+                        "79 Station road, kelty"
+                      ]
+                    },
+                    "dataset": [
+                      "MRF"
+                    ]
+                  }
+                },
+                "USA": {
+                  "value": {
+                    "country_iso": "USA",
+                    "components": {
+                      "unspecified": [
+                        "125 Summer St"
+                      ]
+                    },
+                    "location": "42.3529, -71.0578"
+                  }
+                },
+                "AUS": {
+                  "value": {
+                    "country_iso": "AUS",
+                    "components": {
+                      "unspecified": [
+                        "Level 6/549 St Kilda Rd, Melbourne VIC 3004"
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AddressSearchV1Response"
+                },
+                "examples": {
+                  "GBR": {
+                    "value": {
+                      "result": {
+                        "more_results_available": false,
+                        "confidence": "Multiple matches",
+                        "suggestions": [
+                          {
+                            "global_address_key": "aWQ9NzkgU3RhdGlvbiBSb2FkLCBLZWx0eSwgS1k0IDBCTCwgVW5pdGVkIEtpbmdkb21-YWx0X2tleT0xMjM1MzIzMn5kYXRhc2V0PUdCUl9QQUZ-Zm9ybWF0X2tleT1HQlIkJGM3NWVlM2VjLTcyOGUtNDZlNS1iODYwLTlmZGUzNmFiNWQ0OSQkJA",
+                            "text": "79 Station Road, Kelty, KY4 0BL",
+                            "matched": [
+                              [
+                                17,
+                                22
+                              ],
+                              [
+                                11,
+                                15
+                              ],
+                              [
+                                3,
+                                10
+                              ],
+                              [
+                                0,
+                                2
+                              ]
+                            ],
+                            "format": "https://api.experianaperture.io/address/format/v1/aWQ9NzkgU3RhdGlvbiBSb2FkLCBLZWx0eSwgS1k0IDBCTCwgVW5pdGVkIEtpbmdkb21-YWx0X2tleT0xMjM1MzIzMn5kYXRhc2V0PUdCUl9QQUZ-Zm9ybWF0X2tleT1HQlIkJGM3NWVlM2VjLTcyOGUtNDZlNS1iODYwLTlmZGUzNmFiNWQ0OSQkJH5RTD0yMn5nZW89RmFsc2U"
+                          },
+                          {
+                            "global_address_key": "aWQ9NzlBIFNUQVRJT04gUk9BRCwgS0VMVFksIEtZNCAwQkwsIFVuaXRlZCBLaW5nZG9tfmFsdF9rZXk9MTIzNTMyMzJ-ZGF0YXNldD1HQlJfTVJGfmZvcm1hdF9rZXk9R0JSJE1SRiQ0YjI4OWMwOC1iOWNiLTQzMTMtOTYwMy0xMGIyYTE1ODc3M2IkJCQ",
+                            "text": "79A STATION ROAD, KELTY, KY4 0BL",
+                            "matched": [
+                              [
+                                18,
+                                23
+                              ],
+                              [
+                                12,
+                                16
+                              ],
+                              [
+                                4,
+                                11
+                              ],
+                              [
+                                0,
+                                2
+                              ]
+                            ],
+                            "format": "https://api.experianaperture.io/address/format/v1/aWQ9NzlBIFNUQVRJT04gUk9BRCwgS0VMVFksIEtZNCAwQkwsIFVuaXRlZCBLaW5nZG9tfmFsdF9rZXk9MTIzNTMyMzJ-ZGF0YXNldD1HQlJfTVJGfmZvcm1hdF9rZXk9R0JSJE1SRiQ0YjI4OWMwOC1iOWNiLTQzMTMtOTYwMy0xMGIyYTE1ODc3M2IkJCR-UUw9MjJ-Z2VvPUZhbHNl",
+                            "dataset": "MULTIPLE RESIDENCE"
+                          },
+                          {
+                            "global_address_key": "aWQ9NzlCIFNUQVRJT04gUk9BRCwgS0VMVFksIEtZNCAwQkwsIFVuaXRlZCBLaW5nZG9tfmFsdF9rZXk9MTIzNTMyMzJ-ZGF0YXNldD1HQlJfTVJGfmZvcm1hdF9rZXk9R0JSJE1SRiQ1NDkxNTVhMC04NDgxLTQ2MGYtYWIwYS0xMTBjNWE3NjVlZDAkJCQ",
+                            "text": "79B STATION ROAD, KELTY, KY4 0BL",
+                            "matched": [
+                              [
+                                18,
+                                23
+                              ],
+                              [
+                                12,
+                                16
+                              ],
+                              [
+                                4,
+                                11
+                              ],
+                              [
+                                0,
+                                2
+                              ]
+                            ],
+                            "format": "https://api.experianaperture.io/address/format/v1/aWQ9NzlCIFNUQVRJT04gUk9BRCwgS0VMVFksIEtZNCAwQkwsIFVuaXRlZCBLaW5nZG9tfmFsdF9rZXk9MTIzNTMyMzJ-ZGF0YXNldD1HQlJfTVJGfmZvcm1hdF9rZXk9R0JSJE1SRiQ1NDkxNTVhMC04NDgxLTQ2MGYtYWIwYS0xMTBjNWE3NjVlZDAkJCR-UUw9MjJ-Z2VvPUZhbHNl",
+                            "dataset": "MULTIPLE RESIDENCE"
+                          }
+                        ]
+                      }
+                    }
+                  },
+                  "USA": {
+                    "value": {
+                      "result": {
+                        "more_results_available": true,
+                        "confidence": "Multiple matches",
+                        "suggestions": [
+                          {
+                            "global_address_key": "aWQ9MTI1IFN1bW1lciBTdCBTdGUgMTMwLCBCb3N0b24gTUEgMDIxMTAsIFVuaXRlZCBTdGF0ZXMgT2YgQW1lcmljYX5hbHRfa2V5PXwxMjUgU3VtbWVyIFN0IFN0ZSAxMzB8fEJvc3RvbixNQSwwMjExMC0xNjczfmRhdGFzZXQ9VVNBX1BBRn5mb3JtYXRfa2V5PVVTQSQkMTUxZmZhZjktYjk0ZC00ZTJmLTk2ZDMtZjdiNTRhMjIyYjBkJDEyNSQxMzAk",
+                            "text": "125 Summer St Ste 130, Boston MA 02110",
+                            "matched": [
+                              [
+                                14,
+                                17
+                              ],
+                              [
+                                11,
+                                13
+                              ],
+                              [
+                                4,
+                                10
+                              ],
+                              [
+                                0,
+                                3
+                              ]
+                            ],
+                            "format": "https://api.experianaperture.io/address/format/v1/aWQ9MTI1IFN1bW1lciBTdCBTdGUgMTMwLCBCb3N0b24gTUEgMDIxMTAsIFVuaXRlZCBTdGF0ZXMgT2YgQW1lcmljYX5hbHRfa2V5PXwxMjUgU3VtbWVyIFN0IFN0ZSAxMzB8fEJvc3RvbixNQSwwMjExMC0xNjczfmRhdGFzZXQ9VVNBX1BBRn5mb3JtYXRfa2V5PVVTQSQkMTUxZmZhZjktYjk0ZC00ZTJmLTk2ZDMtZjdiNTRhMjIyYjBkJDEyNSQxMzAkflFMPTEzfmdlbz1UcnVl"
+                          },
+                          {
+                            "global_address_key": "aWQ9MTI1IFN1bW1lciBTdCBTdGUgMTQwLCBCb3N0b24gTUEgMDIxMTAsIFVuaXRlZCBTdGF0ZXMgT2YgQW1lcmljYX5hbHRfa2V5PXwxMjUgU3VtbWVyIFN0IFN0ZSAxNDB8fEJvc3RvbixNQSwwMjExMC0xNjMzfmRhdGFzZXQ9VVNBX1BBRn5mb3JtYXRfa2V5PVVTQSQkZmZmOWQxZTgtOGE3ZC00ZWMxLWEzYWMtZTZhMGJlMmI1MmZkJDEyNSQxNDAk",
+                            "text": "125 Summer St Ste 140, Boston MA 02110",
+                            "matched": [
+                              [
+                                14,
+                                17
+                              ],
+                              [
+                                11,
+                                13
+                              ],
+                              [
+                                4,
+                                10
+                              ],
+                              [
+                                0,
+                                3
+                              ]
+                            ],
+                            "format": "https://api.experianaperture.io/address/format/v1/aWQ9MTI1IFN1bW1lciBTdCBTdGUgMTQwLCBCb3N0b24gTUEgMDIxMTAsIFVuaXRlZCBTdGF0ZXMgT2YgQW1lcmljYX5hbHRfa2V5PXwxMjUgU3VtbWVyIFN0IFN0ZSAxNDB8fEJvc3RvbixNQSwwMjExMC0xNjMzfmRhdGFzZXQ9VVNBX1BBRn5mb3JtYXRfa2V5PVVTQSQkZmZmOWQxZTgtOGE3ZC00ZWMxLWEzYWMtZTZhMGJlMmI1MmZkJDEyNSQxNDAkflFMPTEzfmdlbz1UcnVl"
+                          },
+                          {
+                            "global_address_key": "aWQ9MTI1IFN1bW1lciBTdCBTdGUgMTgwLCBCb3N0b24gTUEgMDIxMTAsIFVuaXRlZCBTdGF0ZXMgT2YgQW1lcmljYX5hbHRfa2V5PXwxMjUgU3VtbWVyIFN0IFN0ZSAxODB8fEJvc3RvbixNQSwwMjExMC0xNjIwfmRhdGFzZXQ9VVNBX1BBRn5mb3JtYXRfa2V5PVVTQSQkNGE5YzFkMGItMmI1Zi00OTRhLTg2MWQtZWZlMTczNWQ1ODM4JDEyNSQxODAk",
+                            "text": "125 Summer St Ste 180, Boston MA 02110",
+                            "matched": [
+                              [
+                                14,
+                                17
+                              ],
+                              [
+                                11,
+                                13
+                              ],
+                              [
+                                4,
+                                10
+                              ],
+                              [
+                                0,
+                                3
+                              ]
+                            ],
+                            "format": "https://api.experianaperture.io/address/format/v1/aWQ9MTI1IFN1bW1lciBTdCBTdGUgMTgwLCBCb3N0b24gTUEgMDIxMTAsIFVuaXRlZCBTdGF0ZXMgT2YgQW1lcmljYX5hbHRfa2V5PXwxMjUgU3VtbWVyIFN0IFN0ZSAxODB8fEJvc3RvbixNQSwwMjExMC0xNjIwfmRhdGFzZXQ9VVNBX1BBRn5mb3JtYXRfa2V5PVVTQSQkNGE5YzFkMGItMmI1Zi00OTRhLTg2MWQtZWZlMTczNWQ1ODM4JDEyNSQxODAkflFMPTEzfmdlbz1UcnVl"
+                          },
+                          {
+                            "global_address_key": "aWQ9MTI1IFN1bW1lciBTdCBTdGUgNTEwLCBCb3N0b24gTUEgMDIxMTAsIFVuaXRlZCBTdGF0ZXMgT2YgQW1lcmljYX5hbHRfa2V5PXwxMjUgU3VtbWVyIFN0IFN0ZSA1MTB8fEJvc3RvbixNQSwwMjExMC0xNjk1fmRhdGFzZXQ9VVNBX1BBRn5mb3JtYXRfa2V5PVVTQSQkMTliMTdlNDQtNWYyMi00NTI2LThlMWUtODhlYmU2NTgyZDc1JDEyNSQ1MTAk",
+                            "text": "125 Summer St Ste 510, Boston MA 02110",
+                            "matched": [
+                              [
+                                14,
+                                17
+                              ],
+                              [
+                                11,
+                                13
+                              ],
+                              [
+                                4,
+                                10
+                              ],
+                              [
+                                0,
+                                3
+                              ]
+                            ],
+                            "format": "https://api.experianaperture.io/address/format/v1/aWQ9MTI1IFN1bW1lciBTdCBTdGUgNTEwLCBCb3N0b24gTUEgMDIxMTAsIFVuaXRlZCBTdGF0ZXMgT2YgQW1lcmljYX5hbHRfa2V5PXwxMjUgU3VtbWVyIFN0IFN0ZSA1MTB8fEJvc3RvbixNQSwwMjExMC0xNjk1fmRhdGFzZXQ9VVNBX1BBRn5mb3JtYXRfa2V5PVVTQSQkMTliMTdlNDQtNWYyMi00NTI2LThlMWUtODhlYmU2NTgyZDc1JDEyNSQ1MTAkflFMPTEzfmdlbz1UcnVl"
+                          },
+                          {
+                            "global_address_key": "aWQ9MTI1IFN1bW1lciBTdCBTdGUgMTAyMCwgQm9zdG9uIE1BIDAyMTEwLCBVbml0ZWQgU3RhdGVzIE9mIEFtZXJpY2F-YWx0X2tleT18MTI1IFN1bW1lciBTdCBTdGUgMTAyMHx8Qm9zdG9uLE1BLDAyMTEwLTE2ODF-ZGF0YXNldD1VU0FfUEFGfmZvcm1hdF9rZXk9VVNBJCQ5NDVjZDhiMS00Y2Y1LTQ5OTgtOTQ4ZS00ODVkNjIyOWFhYWEkMTI1JDEwMjAk",
+                            "text": "125 Summer St Ste 1020, Boston MA 02110",
+                            "matched": [
+                              [
+                                14,
+                                17
+                              ],
+                              [
+                                11,
+                                13
+                              ],
+                              [
+                                4,
+                                10
+                              ],
+                              [
+                                0,
+                                3
+                              ]
+                            ],
+                            "format": "https://api.experianaperture.io/address/format/v1/aWQ9MTI1IFN1bW1lciBTdCBTdGUgMTAyMCwgQm9zdG9uIE1BIDAyMTEwLCBVbml0ZWQgU3RhdGVzIE9mIEFtZXJpY2F-YWx0X2tleT18MTI1IFN1bW1lciBTdCBTdGUgMTAyMHx8Qm9zdG9uLE1BLDAyMTEwLTE2ODF-ZGF0YXNldD1VU0FfUEFGfmZvcm1hdF9rZXk9VVNBJCQ5NDVjZDhiMS00Y2Y1LTQ5OTgtOTQ4ZS00ODVkNjIyOWFhYWEkMTI1JDEwMjAkflFMPTEzfmdlbz1UcnVl"
+                          },
+                          {
+                            "global_address_key": "aWQ9MTI1IFN1bW1lciBTdCBTdGUgMTMwMCwgQm9zdG9uIE1BIDAyMTEwLCBVbml0ZWQgU3RhdGVzIE9mIEFtZXJpY2F-YWx0X2tleT18MTI1IFN1bW1lciBTdCBTdGUgMTMwMHx8Qm9zdG9uLE1BLDAyMTEwLTE2ODB-ZGF0YXNldD1VU0FfUEFGfmZvcm1hdF9rZXk9VVNBJCRjYWI5ZmU5ZC1mYzE5LTQ1MzEtYTU1MS1kMmYwZmEzNjFhNDAkMTI1JDEzMDAk",
+                            "text": "125 Summer St Ste 1300, Boston MA 02110",
+                            "matched": [
+                              [
+                                14,
+                                17
+                              ],
+                              [
+                                11,
+                                13
+                              ],
+                              [
+                                4,
+                                10
+                              ],
+                              [
+                                0,
+                                3
+                              ]
+                            ],
+                            "format": "https://api.experianaperture.io/address/format/v1/aWQ9MTI1IFN1bW1lciBTdCBTdGUgMTMwMCwgQm9zdG9uIE1BIDAyMTEwLCBVbml0ZWQgU3RhdGVzIE9mIEFtZXJpY2F-YWx0X2tleT18MTI1IFN1bW1lciBTdCBTdGUgMTMwMHx8Qm9zdG9uLE1BLDAyMTEwLTE2ODB-ZGF0YXNldD1VU0FfUEFGfmZvcm1hdF9rZXk9VVNBJCRjYWI5ZmU5ZC1mYzE5LTQ1MzEtYTU1MS1kMmYwZmEzNjFhNDAkMTI1JDEzMDAkflFMPTEzfmdlbz1UcnVl"
+                          },
+                          {
+                            "global_address_key": "aWQ9MTI1IFN1bW1lciBTdCBTdGUgMTM1MCwgQm9zdG9uIE1BIDAyMTEwLCBVbml0ZWQgU3RhdGVzIE9mIEFtZXJpY2F-YWx0X2tleT18MTI1IFN1bW1lciBTdCBTdGUgMTM1MHx8Qm9zdG9uLE1BLDAyMTEwLTE2MjF-ZGF0YXNldD1VU0FfUEFGfmZvcm1hdF9rZXk9VVNBJCQ4ZWI5YzJlMS00NTVlLTQyZTktYWFiNC04MmE1YWM1OTZiNjkkMTI1JDEzNTAk",
+                            "text": "125 Summer St Ste 1350, Boston MA 02110",
+                            "matched": [
+                              [
+                                14,
+                                17
+                              ],
+                              [
+                                11,
+                                13
+                              ],
+                              [
+                                4,
+                                10
+                              ],
+                              [
+                                0,
+                                3
+                              ]
+                            ],
+                            "format": "https://api.experianaperture.io/address/format/v1/aWQ9MTI1IFN1bW1lciBTdCBTdGUgMTM1MCwgQm9zdG9uIE1BIDAyMTEwLCBVbml0ZWQgU3RhdGVzIE9mIEFtZXJpY2F-YWx0X2tleT18MTI1IFN1bW1lciBTdCBTdGUgMTM1MHx8Qm9zdG9uLE1BLDAyMTEwLTE2MjF-ZGF0YXNldD1VU0FfUEFGfmZvcm1hdF9rZXk9VVNBJCQ4ZWI5YzJlMS00NTVlLTQyZTktYWFiNC04MmE1YWM1OTZiNjkkMTI1JDEzNTAkflFMPTEzfmdlbz1UcnVl"
+                          }
+                        ]
+                      }
+                    }
+                  },
+                  "AUS": {
+                    "value": {
+                      "result": {
+                        "more_results_available": false,
+                        "confidence": "Verified match",
+                        "suggestions": [
+                          {
+                            "global_address_key": "aWQ9TGV2ZWwgNiAgNTQ5IFN0IEtpbGRhIFJvYWQsIE1FTEJPVVJORSAgVklDIDMwMDQsIEF1c3RyYWxpYX5hbHRfa2V5PTYyMTQ3NzEyfmRhdGFzZXQ9QVVTX1BBRn5mb3JtYXRfa2V5PUFVUyQkNzYyQVVTLXhPQVVTSEFMbEJ3QUFBQUFJQWdFQUFBQUJPUEZJMEFnaEFBSUFBQUFBQUFBQU5nQUEuLjlrQUFBQUFQLi4uLjhBQUFBQUFBQUFBQUFBQUFBQUFBQk1aWFpsYkNBMkx6VTBPU0JUZENCTGFXeGtZU0JTWkN3Z1RXVnNZbTkxY201bElGWkpReUF6TURBMEFBQUFBQUEtJCQk",
+                            "text": "Level 6  549 St Kilda Road, MELBOURNE  VIC 3004",
+                            "matched": [],
+                            "format": "https://api.experianaperture.io/address/format/v1/aWQ9TGV2ZWwgNiAgNTQ5IFN0IEtpbGRhIFJvYWQsIE1FTEJPVVJORSAgVklDIDMwMDQsIEF1c3RyYWxpYX5hbHRfa2V5PTYyMTQ3NzEyfmRhdGFzZXQ9QVVTX1BBRn5mb3JtYXRfa2V5PUFVUyQkNzYyQVVTLXhPQVVTSEFMbEJ3QUFBQUFJQWdFQUFBQUJPUEZJMEFnaEFBSUFBQUFBQUFBQU5nQUEuLjlrQUFBQUFQLi4uLjhBQUFBQUFBQUFBQUFBQUFBQUFBQk1aWFpsYkNBMkx6VTBPU0JUZENCTGFXeGtZU0JTWkN3Z1RXVnNZbTkxY201bElGWkpReUF6TURBMEFBQUFBQUEtJCQkflFMPTQzfmdlbz1GYWxzZQ"
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "408": {
+            "description": "Request Timeout"
+          },
+          "500": {
+            "description": "Server Error"
+          },
+          "503": {
+            "description": "Service Unavailable"
+          }
+        }
+      }
+    },
+    "/address/format/v1/{global_address_key}": {
+      "get": {
+        "tags": [
+          "AddressValidation"
+        ],
+        "summary": "Gets a final address.",
+        "parameters": [
+          {
+            "name": "Auth-Token",
+            "in": "header",
+            "description": "Your unique key, called a token, that is required to submit an API request.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Your unique key, called a token, that is required to submit an API request."
+            }
+          },
+          {
+            "name": "Add-Metadata",
+            "in": "header",
+            "description": "Specifies if the response should return additional dataset-specific values, such as verbose validation data.",
+            "schema": {
+              "type": "boolean",
+              "description": "Specifies if the response should return additional dataset-specific values, such as verbose validation data."
+            }
+          },
+          {
+            "name": "Add-Components",
+            "in": "header",
+            "description": "Specifies if the response should contain the address broken down into its components.",
+            "schema": {
+              "type": "boolean",
+              "description": "Specifies if the response should contain the address broken down into its components."
+            }
+          },
+          {
+            "name": "Reference-Id",
+            "in": "header",
+            "description": "Optional identifier that will be returned in the response to help you track the request.",
+            "schema": {
+              "type": "string",
+              "description": "Optional identifier that will be returned in the response to help you track the request.",
+              "nullable": true
+            }
+          },
+          {
+            "name": "Timeout-Seconds",
+            "in": "header",
+            "description": "Maximum time you are prepared to wait for a response, expressed in seconds. Acceptable values: 2-15. If a timeout occurs, an HTTP status code of 408 - Request Timeout will be returned.",
+            "schema": {
+              "maximum": 15,
+              "minimum": 2,
+              "type": "integer",
+              "description": "Maximum time you are prepared to wait for a response, expressed in seconds. Acceptable values: 2-15. If a timeout occurs, an HTTP status code of 408 - Request Timeout will be returned.",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "global_address_key",
+            "in": "path",
+            "description": "The ID of the address received as part of a previous fielded or intuitive search. Can be the global address key or the global_format_key.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "The ID of the address received as part of a previous fielded or intuitive search. Can be the global address key or the global_format_key."
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AddressFormatV1Response"
+                },
+                "examples": {
+                  "GBR": {
+                    "value": {
+                      "result": {
+                        "global_address_key": "aWQ9NzlBIFNUQVRJT04gUk9BRCwgS0VMVFksIEtZNCAwQkwsIFVuaXRlZCBLaW5nZG9tfmFsdF9rZXk9MTIzNTMyMzJ-ZGF0YXNldD1HQlJfTVJGfmZvcm1hdF9rZXk9R0JSJE1SRiQ0YjI4OWMwOC1iOWNiLTQzMTMtOTYwMy0xMGIyYTE1ODc3M2IkJCQ",
+                        "confidence": "Verified match",
+                        "address": {
+                          "address_line_1": "79A STATION ROAD",
+                          "address_line_2": "",
+                          "address_line_3": "",
+                          "locality": "KELTY",
+                          "region": "",
+                          "postal_code": "KY4 0BL",
+                          "country": "UNITED KINGDOM"
+                        },
+                        "components": {
+                          "language": "en-GB",
+                          "country_name": "UNITED KINGDOM",
+                          "country_iso_3": "GBR",
+                          "postal_code": {
+                            "full_name": "KY4 0BL",
+                            "primary": "KY4 0BL"
+                          },
+                          "building": {
+                            "building_number": "79A"
+                          },
+                          "street": {
+                            "full_name": "STATION ROAD",
+                            "name": "STATION",
+                            "type": "ROAD"
+                          },
+                          "locality": {
+                            "town": {
+                              "name": "KELTY"
+                            }
+                          }
+                        }
+                      },
+                      "metadata": {
+                        "address_info": {
+                          "number_of_households": "2",
+                          "identifier": {
+                            "umrrn": "50101642",
+                            "udprn": "12353232"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "USA": {
+                    "value": {
+                      "result": {
+                        "global_address_key": "aWQ9MTI1IFN1bW1lciBTdCBTdGUgMTMwLCBCb3N0b24gTUEgMDIxMTAsIFVuaXRlZCBTdGF0ZXMgT2YgQW1lcmljYX5hbHRfa2V5PXwxMjUgU3VtbWVyIFN0IFN0ZSAxMzB8fEJvc3RvbixNQSwwMjExMC0xNjczfmRhdGFzZXQ9VVNBX1BBRn5mb3JtYXRfa2V5PVVTQSQkMTUxZmZhZjktYjk0ZC00ZTJmLTk2ZDMtZjdiNTRhMjIyYjBkJDEyNSQxMzAk",
+                        "confidence": "Verified match",
+                        "address": {
+                          "address_line_1": "125 Summer St",
+                          "address_line_2": "Ste 130",
+                          "address_line_3": "",
+                          "locality": "Boston",
+                          "region": "MA",
+                          "postal_code": "02110-1673",
+                          "country": "UNITED STATES OF AMERICA"
+                        },
+                        "components": {
+                          "language": "en-GB",
+                          "country_name": "United States Of America",
+                          "country_iso_3": "USA",
+                          "postal_code": {
+                            "full_name": "02110-1673",
+                            "primary": "02110",
+                            "secondary": "1673"
+                          },
+                          "sub_building": {
+                            "door": {
+                              "full_name": "Ste 130",
+                              "type": "Ste",
+                              "value": "130"
+                            }
+                          },
+                          "building": {
+                            "building_number": "125"
+                          },
+                          "street": {
+                            "full_name": "Summer St",
+                            "name": "Summer",
+                            "type": "St"
+                          },
+                          "locality": {
+                            "region": {
+                              "code": "MA"
+                            },
+                            "sub_region": {
+                              "name": "Suffolk"
+                            },
+                            "town": {
+                              "name": "Boston"
+                            }
+                          }
+                        }
+                      },
+                      "metadata": {
+                        "address_classification": {
+                          "delivery_type": "business"
+                        },
+                        "dpv": {
+                          "cmra_indicator": "N",
+                          "seed_indicator": " ",
+                          "dpv_indicator": "Y",
+                          "footnotes": [
+                            "AA",
+                            "BB"
+                          ],
+                          "vacancy_indicator": "N",
+                          "no_stats_indicator": "N",
+                          "pbsa_indicator": "N"
+                        }
+                      }
+                    }
+                  },
+                  "AUS": {
+                    "value": {
+                      "result": {
+                        "global_address_key": "aWQ9TGV2ZWwgNiAgNTQ5IFN0IEtpbGRhIFJvYWQsIE1FTEJPVVJORSAgVklDIDMwMDQsIEF1c3RyYWxpYX5hbHRfa2V5PTYyMTQ3NzEyfmRhdGFzZXQ9QVVTX1BBRn5mb3JtYXRfa2V5PUFVUyQkNzYyQVVTLXhPQVVTSEFMbEJ3QUFBQUFJQWdFQUFBQUJPUEZJMEFnaEFBSUFBQUFBQUFBQU5nQUEuLjlrQUFBQUFQLi4uLjhBQUFBQUFBQUFBQUFBQUFBQUFBQk1aWFpsYkNBMkx6VTBPU0JUZENCTGFXeGtZU0JTWkN3Z1RXVnNZbTkxY201bElGWkpReUF6TURBMEFBQUFBQUEtJCQk",
+                        "confidence": "Verified match",
+                        "address": {
+                          "address_line_1": "L 6549 St Kilda Rd",
+                          "address_line_2": "",
+                          "address_line_3": "",
+                          "locality": "MELBOURNE",
+                          "region": "VIC",
+                          "postal_code": "3004",
+                          "country": "AUSTRALIA"
+                        },
+                        "components": {
+                          "language": "en-GB",
+                          "country_name": "AUSTRALIA",
+                          "country_iso_3": "AUS",
+                          "postal_code": {
+                            "full_name": "3004",
+                            "primary": "3004"
+                          },
+                          "sub_building": {
+                            "floor": {
+                              "full_name": "L 6",
+                              "type": "L",
+                              "value": "6"
+                            }
+                          },
+                          "building": {
+                            "building_number": "549"
+                          },
+                          "street": {
+                            "full_name": "St Kilda Rd",
+                            "name": "St Kilda",
+                            "type": "Rd"
+                          },
+                          "locality": {
+                            "town": {
+                              "name": "MELBOURNE"
+                            }
+                          }
+                        }
+                      },
+                      "metadata": {
+                        "address_info": {
+                          "identifier": {
+                            "dpid": "62147712"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "408": {
+            "description": "Request Timeout"
+          },
+          "500": {
+            "description": "Server Error"
+          },
+          "503": {
+            "description": "Service Unavailable"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ResponseError": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "A link to documentation that provides more details about the error you’ve encountered.",
+            "nullable": true
+          },
+          "title": {
+            "type": "string",
+            "description": "The title of the error.",
+            "nullable": true,
+            "example": "Bad Request"
+          },
+          "detail": {
+            "type": "string",
+            "description": "A description of the error.",
+            "nullable": true,
+            "example": "The request body was malformed."
+          },
+          "instance": {
+            "type": "string",
+            "description": "The endpoint that returned the error.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Error model containing the error details."
+      },
+      "AddressFormatV1Address": {
+        "type": "object",
+        "properties": {
+          "address_line_1": {
+            "type": "string",
+            "description": "The first line of address containing a number of specific components relating to the premises and street.",
+            "nullable": true
+          },
+          "address_line_2": {
+            "type": "string",
+            "description": "The second line of address containing a number of specific components relating to the premises and street.",
+            "nullable": true
+          },
+          "address_line_3": {
+            "type": "string",
+            "description": "The third line of address containing a number of specific components relating to the premises and street.",
+            "nullable": true
+          },
+          "locality": {
+            "type": "string",
+            "description": "The town, locality or suburb.",
+            "nullable": true
+          },
+          "region": {
+            "type": "string",
+            "description": "The city, state code or province.",
+            "nullable": true
+          },
+          "postal_code": {
+            "type": "string",
+            "description": "The post/zip code.",
+            "nullable": true
+          },
+          "country": {
+            "type": "string",
+            "description": "The localised country name.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Seven address lines representing a formatted address for the chosen country."
+      },
+      "AddressFormatV1PostalCodeElement": {
+        "type": "object",
+        "properties": {
+          "full_name": {
+            "type": "string",
+            "description": "Gets or sets the full name of the postal code.",
+            "nullable": true
+          },
+          "primary": {
+            "type": "string",
+            "description": "Gets or sets the primary name of the postal code.",
+            "nullable": true
+          },
+          "secondary": {
+            "type": "string",
+            "description": "Gets or sets the secondary name of the postal code.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "The postal code element."
+      },
+      "AddressFormatV1DeliveryServiceComponents": {
+        "type": "object",
+        "properties": {
+          "full_name": {
+            "type": "string",
+            "description": "The full name of the delivery service.",
+            "nullable": true
+          },
+          "service_type": {
+            "type": "string",
+            "description": "The delivery service type.",
+            "nullable": true
+          },
+          "service_number": {
+            "type": "string",
+            "description": "The delivery service number.",
+            "nullable": true
+          },
+          "post_centre_name": {
+            "type": "string",
+            "description": "The delivery service post center name.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "The delivery service component."
+      },
+      "AddressFormatV1SubBuildingItem": {
+        "type": "object",
+        "properties": {
+          "full_name": {
+            "type": "string",
+            "description": "The full name of this subcomponent.",
+            "nullable": true
+          },
+          "type": {
+            "type": "string",
+            "description": "The type of this subcomponent.",
+            "nullable": true
+          },
+          "value": {
+            "type": "string",
+            "description": "The value of this subcomponent.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "An item of sub-building information, such as a floor or entrance number or name."
+      },
+      "AddressFormatV1SubBuildingComponents": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "The name of a building or property.",
+            "nullable": true
+          },
+          "entrance": {
+            "$ref": "#/components/schemas/AddressFormatV1SubBuildingItem"
+          },
+          "floor": {
+            "$ref": "#/components/schemas/AddressFormatV1SubBuildingItem"
+          },
+          "door": {
+            "$ref": "#/components/schemas/AddressFormatV1SubBuildingItem"
+          }
+        },
+        "additionalProperties": false,
+        "description": "The sub building component."
+      },
+      "AddressFormatV1BuildingComponents": {
+        "type": "object",
+        "properties": {
+          "building_name": {
+            "type": "string",
+            "description": "The building name.",
+            "nullable": true
+          },
+          "building_number": {
+            "type": "string",
+            "description": "The building number.",
+            "nullable": true
+          },
+          "secondary_number": {
+            "type": "string",
+            "description": "The secondary name of the building (if available).",
+            "nullable": true
+          },
+          "allotment_number": {
+            "type": "string",
+            "description": "The allotment name where a person or property resides.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "The building component."
+      },
+      "AddressFormatV1OrganizationComponents": {
+        "type": "object",
+        "properties": {
+          "department_name": {
+            "type": "string",
+            "description": "The department name within an organization.",
+            "nullable": true
+          },
+          "secondary_department_name": {
+            "type": "string",
+            "description": "The secondary department name within an organization (if available).",
+            "nullable": true
+          },
+          "company_name": {
+            "type": "string",
+            "description": "The company name.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "The organization component."
+      },
+      "AddressFormatV1StreetComponents": {
+        "type": "object",
+        "properties": {
+          "full_name": {
+            "type": "string",
+            "description": "The combination of the other populated secondary street components: prefix, name, type, suffix.",
+            "nullable": true
+          },
+          "prefix": {
+            "type": "string",
+            "description": "The street prefix only.",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "description": "The street name only.",
+            "nullable": true
+          },
+          "type": {
+            "type": "string",
+            "description": "The street type only.",
+            "nullable": true
+          },
+          "suffix": {
+            "type": "string",
+            "description": "The street suffix only.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "The street component."
+      },
+      "AddressFormatV1RouteServiceComponents": {
+        "type": "object",
+        "properties": {
+          "full_name": {
+            "type": "string",
+            "description": "The full name of the route service.",
+            "nullable": true
+          },
+          "service_type": {
+            "type": "string",
+            "description": "The route service type.",
+            "nullable": true
+          },
+          "service_number": {
+            "type": "string",
+            "description": "The route service number.",
+            "nullable": true
+          },
+          "delivery_name": {
+            "type": "string",
+            "description": "The route service delivery name.",
+            "nullable": true
+          },
+          "qualifier": {
+            "type": "string",
+            "description": "The route service qualifier.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "The route service."
+      },
+      "AddressFormatV1LocalityItem": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "The name for this subcomponent.",
+            "nullable": true
+          },
+          "code": {
+            "type": "string",
+            "description": "The code of this subcomponent.",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "description": "The description of this subcomponent.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "A single place name, code and a description of its type."
+      },
+      "AddressFormatV1LocalityComponents": {
+        "type": "object",
+        "properties": {
+          "region": {
+            "$ref": "#/components/schemas/AddressFormatV1LocalityItem"
+          },
+          "sub_region": {
+            "$ref": "#/components/schemas/AddressFormatV1LocalityItem"
+          },
+          "town": {
+            "$ref": "#/components/schemas/AddressFormatV1LocalityItem"
+          },
+          "district": {
+            "$ref": "#/components/schemas/AddressFormatV1LocalityItem"
+          },
+          "sub_district": {
+            "$ref": "#/components/schemas/AddressFormatV1LocalityItem"
+          }
+        },
+        "additionalProperties": false,
+        "description": "The locality component."
+      },
+      "AddressFormatV1Components": {
+        "type": "object",
+        "properties": {
+          "language": {
+            "type": "string",
+            "description": "Address language.",
+            "nullable": true
+          },
+          "country_name": {
+            "type": "string",
+            "description": "The name of the country where the address is located.",
+            "nullable": true,
+            "example": "United States of America, United Kingdom"
+          },
+          "country_iso_3": {
+            "type": "string",
+            "description": "The 3-letter ISO country code.",
+            "nullable": true,
+            "example": "USA, GBR, AUS"
+          },
+          "postal_code": {
+            "$ref": "#/components/schemas/AddressFormatV1PostalCodeElement"
+          },
+          "delivery_service": {
+            "$ref": "#/components/schemas/AddressFormatV1DeliveryServiceComponents"
+          },
+          "secondary_delivery_service": {
+            "$ref": "#/components/schemas/AddressFormatV1DeliveryServiceComponents"
+          },
+          "sub_building": {
+            "$ref": "#/components/schemas/AddressFormatV1SubBuildingComponents"
+          },
+          "building": {
+            "$ref": "#/components/schemas/AddressFormatV1BuildingComponents"
+          },
+          "organization": {
+            "$ref": "#/components/schemas/AddressFormatV1OrganizationComponents"
+          },
+          "street": {
+            "$ref": "#/components/schemas/AddressFormatV1StreetComponents"
+          },
+          "secondary_street": {
+            "$ref": "#/components/schemas/AddressFormatV1StreetComponents"
+          },
+          "route_service": {
+            "$ref": "#/components/schemas/AddressFormatV1RouteServiceComponents"
+          },
+          "locality": {
+            "$ref": "#/components/schemas/AddressFormatV1LocalityComponents"
+          }
+        },
+        "additionalProperties": false,
+        "description": "The components that differ by country and address type. Note that parameters with blank values will not be returned."
+      },
+      "AddressFormatV1Result": {
+        "type": "object",
+        "properties": {
+          "global_address_key": {
+            "type": "string",
+            "description": "The ID of the address received as part of a validation.",
+            "nullable": true
+          },
+          "confidence": {
+            "type": "string",
+            "description": "The confidence of address validation result.",
+            "nullable": true
+          },
+          "address": {
+            "$ref": "#/components/schemas/AddressFormatV1Address"
+          },
+          "components": {
+            "$ref": "#/components/schemas/AddressFormatV1Components"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Information about the result. Includes the validated address and its confidence level."
+      },
+      "AddressFormatV1IdsMetadata": {
+        "type": "object",
+        "properties": {
+          "umrrn": {
+            "type": "string",
+            "description": "Royal Mail’s Unique Multiple Residence Reference Number, an eight-digit code linked to UDPRNs in Royal Mail’s Multiple Residence dataset.",
+            "nullable": true,
+            "example": "11111111"
+          },
+          "udprn": {
+            "type": "string",
+            "description": "Royal Mail’s Unique Delivery Point Reference Number, an eight-digit code assigned to every delivery point in the Postcode Address File (PAF).",
+            "nullable": true,
+            "example": "22222222"
+          },
+          "dpid": {
+            "type": "string",
+            "description": "Australia Post’s Delivery Point Identifier, an eight-digit number that uniquely identifies a physical location to which Australia Post delivers mail.",
+            "nullable": true,
+            "example": "33333333"
+          },
+          "gnafpid": {
+            "type": "string",
+            "description": "Geoscape Australia’s Geocoded National Address File Persistent Identifier (G-NAF ID)",
+            "nullable": true,
+            "example": "GAVIC411711441"
+          }
+        },
+        "additionalProperties": false,
+        "description": "The id metadata of formatted address."
+      },
+      "AddressFormatV1AddressInfo": {
+        "type": "object",
+        "properties": {
+          "sources": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Source of address information.",
+            "nullable": true
+          },
+          "number_of_households": {
+            "type": "string",
+            "description": "Number of households for records in GBR Not Yet Built, or multi-occupancy count of the owning delivery point for GBR Multiple Residence.",
+            "nullable": true,
+            "example": "\"1\""
+          },
+          "identifier": {
+            "$ref": "#/components/schemas/AddressFormatV1IdsMetadata"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Formatted address information."
+      },
+      "AddressFormatV1AddressClassification": {
+        "type": "object",
+        "properties": {
+          "delivery_type": {
+            "type": "string",
+            "description": "Type of mail delivery at the address. Either \"business\" or \"residential\".",
+            "nullable": true,
+            "example": "business"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Address deliverability and type indicators."
+      },
+      "AddressFormatV1DPV": {
+        "type": "object",
+        "properties": {
+          "cmra_indicator": {
+            "type": "string",
+            "description": "Indicates that the address is a private business that acts as a commercial mail-receiving agent for specific clients.",
+            "nullable": true,
+            "example": "Y"
+          },
+          "seed_indicator": {
+            "type": "string",
+            "description": "Seed records are control records placed by the USPS to prevent unauthorized tampering (e.g., creation of lists containing every single delivery point in a geographical region). A seed address will deactivate DPV functionality. To re-activate, please visit the Self Service Portal.",
+            "nullable": true,
+            "example": "Y"
+          },
+          "dpv_indicator": {
+            "type": "string",
+            "description": "Indicates whether selected address is confirmed as deliverable via DPV (Delivery Point Validation) process. For all possible values, please visit our technical documentation portal.",
+            "nullable": true,
+            "example": "Y"
+          },
+          "footnotes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "USPS codes denoting DPV match levels. For a list of all possible values, please visit our technical documentation portal.",
+            "nullable": true
+          },
+          "vacancy_indicator": {
+            "type": "string",
+            "description": "An address known to be unoccupied for over 90 days and therefore not receiving mail deliveries.",
+            "nullable": true,
+            "example": "Y"
+          },
+          "no_stats_indicator": {
+            "type": "string",
+            "description": "An address known to not receive mail deliveries (e.g. a house under construction).",
+            "nullable": true,
+            "example": "Y"
+          },
+          "pbsa_indicator": {
+            "type": "string",
+            "description": "Indicates addresses known to be Post Office Box Street Addresses (PBSA).",
+            "nullable": true,
+            "example": "Y"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Delivery Point Validation information for the address (USA only)."
+      },
+      "AddressFormatV1Metadata": {
+        "type": "object",
+        "properties": {
+          "address_info": {
+            "$ref": "#/components/schemas/AddressFormatV1AddressInfo"
+          },
+          "address_classification": {
+            "$ref": "#/components/schemas/AddressFormatV1AddressClassification"
+          },
+          "dpv": {
+            "$ref": "#/components/schemas/AddressFormatV1DPV"
+          }
+        },
+        "additionalProperties": false,
+        "description": "The metadata of formatted address."
+      },
+      "AddressFormatV1Response": {
+        "type": "object",
+        "properties": {
+          "error": {
+            "$ref": "#/components/schemas/ResponseError"
+          },
+          "result": {
+            "$ref": "#/components/schemas/AddressFormatV1Result"
+          },
+          "metadata": {
+            "$ref": "#/components/schemas/AddressFormatV1Metadata"
+          }
+        },
+        "additionalProperties": false,
+        "description": "The address format v1 response."
+      },
+      "AddressSearchV1InputComponent": {
+        "required": [
+          "unspecified"
+        ],
+        "type": "object",
+        "properties": {
+          "unspecified": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "The input component collection."
+          }
+        },
+        "additionalProperties": false,
+        "description": "The address search input component."
+      },
+      "AddressSearchV1Request": {
+        "required": [
+          "components",
+          "country_iso"
+        ],
+        "type": "object",
+        "properties": {
+          "country_iso": {
+            "type": "string",
+            "description": "The country ISO3 code of address."
+          },
+          "components": {
+            "$ref": "#/components/schemas/AddressSearchV1InputComponent"
+          },
+          "location": {
+            "type": "string",
+            "description": "Geographical location (latitude/longitude) to use as the center point for the search (USA only).",
+            "nullable": true
+          },
+          "dataset": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "The dataset for address validation.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "The address search v1 request."
+      },
+      "AddressSearchV1MatchedResult": {
+        "type": "object",
+        "properties": {
+          "global_address_key": {
+            "type": "string",
+            "description": "The ID of the address received as part of a validation.",
+            "nullable": true
+          },
+          "text": {
+            "type": "string",
+            "description": "The suggestion that should be presented to the user as a possible match to their input.",
+            "nullable": true
+          },
+          "matched": {
+            "type": "array",
+            "items": {
+              "type": "array",
+              "items": {
+                "type": "integer",
+                "format": "int32"
+              }
+            },
+            "description": "A collection of the characters in the suggestion that have been matched. Integrators can use this information to highlight matched text.",
+            "nullable": true
+          },
+          "format": {
+            "type": "string",
+            "description": "The format URL of the suggested address.",
+            "nullable": true
+          },
+          "dataset": {
+            "type": "string",
+            "description": "The dataset of the suggested address.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "The matched result."
+      },
+      "AddressSearchV1Result": {
+        "type": "object",
+        "properties": {
+          "more_results_available": {
+            "type": "boolean",
+            "description": "To indicate that there are more suggestions available than the 7 results provided."
+          },
+          "confidence": {
+            "type": "string",
+            "description": "The outcome (confidence level) of the validation.",
+            "nullable": true
+          },
+          "suggestions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AddressSearchV1MatchedResult"
+            },
+            "description": "A collection of the characters in the suggestion that have been matched. Integrators can use this information to highlight matched text.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "The result details - includes searched data and its confidence level."
+      },
+      "AddressSearchV1Response": {
+        "type": "object",
+        "properties": {
+          "error": {
+            "$ref": "#/components/schemas/ResponseError"
+          },
+          "result": {
+            "$ref": "#/components/schemas/AddressSearchV1Result"
+          }
+        },
+        "additionalProperties": false,
+        "description": "The address search v1 response."
+      }
+    }
+  }
+}
