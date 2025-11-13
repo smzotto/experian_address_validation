@@ -1,0 +1,46 @@
+{
+  "result": {
+    "global_address_key": "aWQ9NzlBIFNUQVRJT04gUk9BRCwgS0VMVFksIEtZNCAwQkwsIFVuaXRlZCBLaW5nZG9tfmFsdF9rZXk9MTIzNTMyMzJ-ZGF0YXNldD1HQlJfTVJGfmZvcm1hdF9rZXk9R0JSJE1SRiQ0YjI4OWMwOC1iOWNiLTQzMTMtOTYwMy0xMGIyYTE1ODc3M2IkJCQ",
+    "confidence": "Verified match",
+    "address": {
+      "address_line_1": "79A STATION ROAD",
+      "address_line_2": "",
+      "address_line_3": "",
+      "locality": "KELTY",
+      "region": "",
+      "postal_code": "KY4 0BL",
+      "country": "UNITED KINGDOM"
+    },
+    "components": {
+      "language": "en-GB",
+      "country_name": "UNITED KINGDOM",
+      "country_iso_3": "GBR",
+      "postal_code": {
+        "full_name": "KY4 0BL",
+        "primary": "KY4 0BL"
+      },
+      "building": {
+        "building_number": "79A"
+      },
+      "street": {
+        "full_name": "STATION ROAD",
+        "name": "STATION",
+        "type": "ROAD"
+      },
+      "locality": {
+        "town": {
+          "name": "KELTY"
+        }
+      }
+    }
+  },
+  "metadata": {
+    "address_info": {
+      "number_of_households": "2",
+      "identifier": {
+        "umrrn": "50101642",
+        "udprn": "12353232"
+      }
+    }
+  }
+}
